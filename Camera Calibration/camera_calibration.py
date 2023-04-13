@@ -9,7 +9,7 @@ objp[:,:2] = np.mgrid[0:7,0:6].T.reshape(-1,2)
 # Arrays to store object points and image points from all the images.
 objpoints = [] # 3d point in real world space
 imgpoints = [] # 2d points in image plane.
-images = glob.glob('Camera Calibration\\*.jpg')
+images = glob.glob('Project-Computer-Vision\\Camera Calibration\\*.jpg')
 for fname in images:
     img = cv.imread(fname)
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
@@ -28,7 +28,7 @@ cv.destroyAllWindows()
 
 ret, mtx, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
 
-img = cv.imread('Camera Calibration\\left12.jpg')
+img = cv.imread('Project-Computer-Vision\\Camera Calibration\\left12.jpg')
 h,  w = img.shape[:2]
 newcameramtx, roi = cv.getOptimalNewCameraMatrix(mtx, dist, (w,h), 1, (w,h))
 
@@ -36,13 +36,13 @@ newcameramtx, roi = cv.getOptimalNewCameraMatrix(mtx, dist, (w,h), 1, (w,h))
 dst = cv.undistort(img, mtx, dist, None, newcameramtx)
 x, y, w, h = roi
 dst = dst[y:y+h, x:x+w]
-cv.imwrite('Camera Calibration\\Undistort.png', dst)
+cv.imwrite('Project-Computer-Vision\\Camera Calibration\\Undistort.png', dst)
 
 # Guna Remapping
 mapx, mapy = cv.initUndistortRectifyMap(mtx, dist, None, newcameramtx, (w,h), 5)
 dst = cv.remap(img, mapx, mapy, cv.INTER_LINEAR)
 x, y, w, h = roi
 dst = dst[y:y+h, x:x+w]
-cv.imwrite('Camera Calibration\\Remapping.png', dst)
+cv.imwrite('Project-Computer-Vision\\Camera Calibration\\Remapping.png', dst)
 
 np.savez('B.npz', mtx=mtx, dist=dist, rvecs=rvecs, tvecs=tvecs)

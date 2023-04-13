@@ -2,7 +2,7 @@ import numpy as np
 import cv2 as cv
 import glob
 
-with np.load('Pose Estimation\\B.npz') as X:
+with np.load('Project-Computer-Vision\\Pose Estimation\\B.npz') as X:
     mtx, dist, _, _ = [X[i] for i in ('mtx','dist','rvecs','tvecs')]
 
 def draw(img, corners, imgpts):
@@ -30,7 +30,7 @@ axis = np.float32([[3,0,0], [0,3,0], [0,0,-3]]).reshape(-1,3)
 axiscube = np.float32([[0,0,0], [0,3,0], [3,3,0], [3,0,0],
                    [0,0,-3],[0,3,-3],[3,3,-3],[3,0,-3] ])
 
-for fname in glob.glob('Pose Estimation\\left*.jpg'):
+for fname in glob.glob('Project-Computer-Vision\\Pose Estimation\\left*.jpg'):
     img = cv.imread(fname)
     gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
     ret, corners = cv.findChessboardCorners(gray, (7,6),None)
