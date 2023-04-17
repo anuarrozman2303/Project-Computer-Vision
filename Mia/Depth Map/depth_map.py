@@ -13,10 +13,10 @@ stereo = cv2.StereoSGBM_create(numDisparities=16, blockSize=15)
 # Compute the disparity map
 disparity = stereo.compute(img_left, img_right)
 
-# Normalize the disparity map for display
+# Normalize the disparity map 
 disparity_norm = cv2.normalize(disparity, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
 
-# Display the original left and right images, and the resulting disparity map
+# Display output
 cv2.imshow('Left Image', img_left)
 cv2.imshow('Right Image', img_right)
 cv2.imshow('Disparity Map', disparity_norm)
